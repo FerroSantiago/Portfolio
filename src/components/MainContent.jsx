@@ -20,7 +20,7 @@ const MainContent = () => {
           className="relative w-full h-screen"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.1, ease: "easeInOut" }}
+          transition={{ duration: 1, ease: "easeInOut" }}
         >
           <LinesBackground />
           <IconHover />

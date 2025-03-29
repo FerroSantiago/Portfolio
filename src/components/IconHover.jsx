@@ -49,7 +49,7 @@ const IconHover = () => {
   return (
     <div className="relative w-full h-screen overflow-hidden">
       {/* Lista de navegacion */}
-      <div className="absolute z-10 top-4 left-4 md:top-16 md:left-16 w-1/3 md:w-1/4 h-auto md:h-1/2 bg-black/10 backdrop-blur-sm rounded-tl-4xl p-6">
+      <div className="absolute z-10 top-4 left-4 md:top-16 md:left-16 w-3/10 h-auto md:h-1/2 bg-black/10 backdrop-blur-sm rounded-tl-4xl p-6">
         <ul>
           {navItems.map((item) => (
             <li key={item.key}>
