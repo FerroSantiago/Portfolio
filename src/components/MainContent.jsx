@@ -23,7 +23,14 @@ const MainContent = () => {
           transition={{ duration: 1, ease: "easeInOut" }}
         >
           <LinesBackground />
-          <IconHover />
+          <motion.div
+            className="relative w-full h-screen"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 2, ease: "easeInOut" }}
+          >
+            <IconHover />
+          </motion.div>
         </motion.div>
       )}
     </>

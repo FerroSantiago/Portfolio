@@ -161,7 +161,7 @@ const TerminalEffect = () => {
   }, [lines])
 
   return (
-    <div className="text-4xl text-right w-full select-none">
+    <div className="text-3xl text-right w-full select-none">
       {lines.map((line, lineIndex) => (
         <div key={lineIndex} className="whitespace-pre">
           {line.map((char, charIndex) => (

@@ -47,9 +47,14 @@ const IconHover = () => {
   const calcBlur = useCallback((opacity) => `${(1 - opacity) * 5}px`, [])
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full h-screen">
       {/* Lista de navegacion */}
-      <div className="absolute z-10 top-4 left-4 md:top-16 md:left-16 w-3/10 h-auto md:h-1/2 bg-black/10 backdrop-blur-sm rounded-tl-4xl p-6">
+      <div className="absolute z-10 top-4 left-4 md:top-16 md:left-16 w-3/10 h-auto bg-black/10 backdrop-blur-sm rounded-tl-4xl p-6">
+        {/* Esquina superior izquierda */}
+        <div className="absolute top-0 left-0 w-[25%] h-[25%] border-t-2 border-l-2 border-white"></div>
+        {/* Esquina inferior derecha */}
+        <div className="absolute bottom-0 right-0 w-[25%] h-[25%] border-b-2 border-r-2 border-white"></div>
+
         <ul>
           {navItems.map((item) => (
             <li key={item.key}>
@@ -82,7 +87,12 @@ const IconHover = () => {
       </div>
 
       {/* Contenedor del icono de la derecha */}
-      <div className="absolute z-10 top-1/3 right-4 md:right-16 bottom-4 md:bottom-16 aspect-square bg-black/10 backdrop-blur-sm rounded-br-4xl p-4 flex items-center justify-center overflow-hidden">
+      <div className="absolute z-10 top-1/3 right-4 md:right-16 bottom-4 md:bottom-16 aspect-square bg-black/10 backdrop-blur-sm rounded-br-4xl p-4 flex items-center justify-center">
+        {/* Esquina superior derecha */}
+        <div className="absolute top-0 right-0 w-[25%] h-[25%] border-t-2 border-r-2 border-white"></div>
+        {/* Esquina inferior izquierda */}
+        <div className="absolute bottom-0 left-0 w-[25%] h-[25%] border-b-2 border-l-2 border-white"></div>
+
         {/* Icono activo */}
         {activeIconKey && (
           <img
@@ -98,7 +108,7 @@ const IconHover = () => {
 
         {/* Efecto terminal si no hay icono */}
         {!activeIconKey && (
-          <div className="w-full h-full flex items-end">
+          <div className="w-full h-full flex items-end mb-10">
             <TerminalEffect />
           </div>
         )}
