@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react"
 const TerminalEffect = () => {
   const [lines, setLines] = useState([])
   const animationRefs = useRef([])
-  const lineChangeRefs = useRef([]) // Array to store multiple interval references
+  const lineChangeRefs = useRef([])
   const numberOfLines = 5
 
   const getRandomChar = () => {
@@ -13,60 +13,60 @@ const TerminalEffect = () => {
     return chars[Math.floor(Math.random() * chars.length)]
   }
 
+  // Funcion que genera un numero entre 500 y 1500 para el tiempo(ms) de cambio de caracteres
   const getRandomInterval = () => {
-    // Generate random intervals between 100ms and 800ms for character changes
-    return Math.floor(Math.random() * 700) + 100
+    return Math.floor(Math.random() * 1000) + 500
   }
 
+  // Funcion que genera un numero entre 4000 y 6000 para el tiempo(ms) de cambio de largo de lineas
   const getRandomLineChangeInterval = () => {
-    // Generate random intervals between 2000ms and 3000ms for line length changes
-    return Math.floor(Math.random() * 1000) + 2000
+    return Math.floor(Math.random() * 2000) + 4000
   }
 
+  // Funcion que genera un numero entre 18 y 22 para la cantidad de caracteres de la linea
   const getRandomLength = () => {
-    // Generate random length between 18 and 22
     return Math.floor(Math.random() * 5) + 18
   }
 
-  // Create a character object with random value and change time
+  // Crea un objeto caracter con un valor (y tiempo de vida) aleatorio
   const createCharacter = () => ({
     value: getRandomChar(),
     nextChangeTime: getRandomInterval(),
   })
 
-  // Initialize a line with a specific length
+  // Inicializar la linea con un largo especifico
   const initializeLine = (length) => {
     return Array.from({ length }, () => createCharacter())
   }
 
-  // Change the length of a specific line
+  // Cambiar el largo de una linea espcifica
   const changeLineLength = (lineIndex, currentLines) => {
     const newLength = getRandomLength()
     const currentLine = currentLines[lineIndex]
     let newLine
 
     if (newLength > currentLine.length) {
-      // Add new characters
+      // Añadir caracteres
       const additionalChars = Array.from({ length: newLength - currentLine.length }, () => createCharacter())
       newLine = [...currentLine, ...additionalChars]
     } else if (newLength < currentLine.length) {
-      // Remove characters
+      // Eliminar caracteres
       newLine = currentLine.slice(0, newLength)
     } else {
-      // Same length, no change needed
+      // Mismo largo, no necesita cambio
       newLine = currentLine
     }
 
     return newLine
   }
 
-  // Setup animation for a specific character
+  // Animacion para un caracter especifico
   const setupCharacterAnimation = (lineIndex, charIndex) => {
     const interval = getRandomInterval()
 
     const timeout = setTimeout(() => {
       setLines((currentLines) => {
-        // Make sure the line and character still exist
+        // Asegurarse que el caracter y la linea existe
         if (!currentLines[lineIndex] || !currentLines[lineIndex][charIndex]) {
           return currentLines
         }
@@ -80,23 +80,23 @@ const TerminalEffect = () => {
         return newLines
       })
 
-      // Setup the next animation for this character
+      // Configuracion de la animacion para este caracter
       setupCharacterAnimation(lineIndex, charIndex)
     }, interval)
 
-    // Store the timeout reference
+    // Guardar la referencia en timeout
     if (!animationRefs.current[lineIndex]) {
       animationRefs.current[lineIndex] = []
     }
     animationRefs.current[lineIndex][charIndex] = timeout
   }
 
-  // Setup line length change for a specific line
+  // Configurar el cambio de largo de linea para una liena especifica
   const setupLineChange = (lineIndex) => {
-    // Generate a random interval between 2-3 seconds
+    // Generar un intervalo aleatorio entre 2  3 segundos
     const interval = getRandomLineChangeInterval()
 
-    // Create an interval that changes just this line's length
+    // Crear un intervalo aleatorio que cambia solo el largo de linea
     const intervalId = setInterval(() => {
       setLines((currentLines) => {
         const newLines = [...currentLines]
@@ -104,17 +104,17 @@ const TerminalEffect = () => {
         return newLines
       })
 
-      // Clear the current interval and set up a new one with a different random duration
+      // Eliminar el intervalo acutar y configurar uno nuevo con una duracion aleatoria diferente
       clearInterval(lineChangeRefs.current[lineIndex])
       setupLineChange(lineIndex)
     }, interval)
 
-    // Store the interval reference
+    // Guardar la referencia del intervalo
     lineChangeRefs.current[lineIndex] = intervalId
   }
 
   useEffect(() => {
-    // Initialize lines with random lengths
+    // Inicializar las lineas con la longitud aleatorioa
     const initialLines = Array.from({ length: numberOfLines }, () => initializeLine(getRandomLength()))
 
     setLines(initialLines)
@@ -123,36 +123,36 @@ const TerminalEffect = () => {
       .map(() => [])
     lineChangeRefs.current = Array(numberOfLines).fill(null)
 
-    // Setup initial character animations
+    // Configuracion inicial de la animacion de los caracteres
     initialLines.forEach((line, lineIndex) => {
       line.forEach((_, charIndex) => {
         setupCharacterAnimation(lineIndex, charIndex)
       })
     })
 
-    // Setup individual line length changes with different intervals
+    // Configurar cambios de linea individuales con diferentes intervalos
     for (let i = 0; i < numberOfLines; i++) {
       setupLineChange(i)
     }
 
-    // Cleanup on unmount
+    // Borrar al desmontar
     return () => {
-      // Clear character animation timeouts
+      // Borar el timeout de la animacion de caracteres
       animationRefs.current.forEach((lineTimeouts) => lineTimeouts.forEach((timeout) => clearTimeout(timeout)))
 
-      // Clear all line change intervals
+      // Borrar todos los intervalos de cambio de liena
       lineChangeRefs.current.forEach((interval) => {
         if (interval) clearInterval(interval)
       })
     }
   }, [])
 
-  // Setup new character animations when lines change
+  // Configurar nuvas animaciones de caracteres cuando la liena cambia
   useEffect(() => {
-    // For each line, check if there are new characters that need animations
+    // Para cada liena, revisa si no hay nuevos caracteres que necesitan ser animados
     lines.forEach((line, lineIndex) => {
       line.forEach((char, charIndex) => {
-        // If this character doesn't have an animation yet, set one up
+        // Si este caracter no tiene animacion, configura una
         if (!animationRefs.current[lineIndex] || !animationRefs.current[lineIndex][charIndex]) {
           setupCharacterAnimation(lineIndex, charIndex)
         }
@@ -161,7 +161,7 @@ const TerminalEffect = () => {
   }, [lines])
 
   return (
-    <div className="text-4xl text-right w-full">
+    <div className="text-4xl text-right w-full select-none">
       {lines.map((line, lineIndex) => (
         <div key={lineIndex} className="whitespace-pre">
           {line.map((char, charIndex) => (

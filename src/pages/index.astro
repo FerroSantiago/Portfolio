@@ -1,8 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import IconHover from "../components/IconHover";
+import MainContent from "../components/MainContent";
 ---
 
 <Layout>
-  <IconHover client:load />
+  <MainContent client:only="react" />
 </Layout>
