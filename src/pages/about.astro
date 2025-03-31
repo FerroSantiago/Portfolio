@@ -1,0 +1,74 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Trophy from "../components/Trophy";
+
+const shelfOne = [
+  { name: "Typescript", icon: "/icons/typescript.svg" },
+  { name: "React", icon: "/icons/react.svg" },
+  { name: "Next.js", icon: "/icons/nextjs.svg" },
+];
+
+const shelfTwo = [
+  { name: "Node.js", icon: "/icons/nodejs.svg" },
+  { name: "Express", icon: "/icons/express.svg" },
+  { name: "Firebase", icon: "/icons/firebase.svg" },
+];
+
+const shelfThree = [
+  { name: "Mongo DB", icon: "/icons/mongodb.svg" },
+  { name: "Supabase", icon: "/icons/supabase.svg" },
+  { name: "Vercel", icon: "/icons/vercel.svg" },
+];
+---
+
+<Layout>
+  <!-- Estructura principal con espacio entre columnas -->
+  <section class="min-h-screen flex justify-between p-10">
+    <!-- Columna Izquierda: Imagen + Texto (1/3 del ancho) -->
+    <div class="w-2/5 flex flex-col items-center justify-center">
+      <!-- Imagen centrada -->
+      <div class="w-75 h-90 flex items-center justify-center mb-4">
+        <img
+          src="/images/profile.png"
+          alt="Mi Foto de Perfil"
+          class="w-75 h-90 object-cover"
+        />
+      </div>
+      <!-- Texto descriptivo centrado -->
+      <div class="text-center">
+        <h1 class="text-3xl font-bold mb-2">Sobre mí</h1>
+        <p class="text-base text-gray-700 leading-relaxed">
+          Aquí puedes escribir una breve descripción sobre tu experiencia, qué
+          te apasiona, en qué estás trabajando actualmente y por qué estas
+          tecnologías son importantes para ti.
+        </p>
+      </div>
+    </div>
+
+    <!-- Columna derecha: Trofeos -->
+    <div class="w-2/5 flex flex-col space-y-6 justify-center">
+      <!-- Estanteria 1 -->
+      <div class="flex justify-around">
+        {
+          shelfOne.map((tech) => (
+            <Trophy icon={tech.icon} name={tech.name} client:visible />
+          ))
+        }
+      </div>
+      <div class="flex justify-around">
+        {
+          shelfTwo.map((tech) => (
+            <Trophy icon={tech.icon} name={tech.name} client:visible />
+          ))
+        }
+      </div>
+      <div class="flex justify-around">
+        {
+          shelfThree.map((tech) => (
+            <Trophy icon={tech.icon} name={tech.name} client:visible />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>
