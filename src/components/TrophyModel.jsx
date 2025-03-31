@@ -80,7 +80,7 @@ export default function TrophyModel({ icon, name }) {
       {/* Esfera */}
       <mesh position={[0, 2.1, 0]}>
         <sphereGeometry args={[1, 15, 15]} />
-        <meshBasicMaterial wireframe color="#ffffff" />
+        <meshBasicMaterial wireframe color="#d69898" />
       </mesh>
 
       {/* Logo */}
