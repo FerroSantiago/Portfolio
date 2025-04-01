@@ -2,8 +2,8 @@
 
 import { useMemo, useRef } from "react"
 import * as THREE from "three"
-import { useTexture } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
+import ExtrudedLogoGLB from "./ExtrudedLogoGLB"
 
 const TECH_COLORS = {
   Typescript: "#3178c6",
@@ -42,7 +42,6 @@ function useTextLabelTexture(text) {
 }
 
 export default function TrophyModel({ icon, name, hovered }) {
-  const texture = useTexture(icon)
   const labelTexture = useTextLabelTexture(name)
   const sphereRef = useRef()
   const logoRef = useRef()
@@ -98,7 +97,6 @@ export default function TrophyModel({ icon, name, hovered }) {
       innerGlowRef.current.material.opacity = THREE.MathUtils.lerp(innerGlowRef.current.material.opacity, 0, 0.1)
     }
   })
-
 
   // Geometria curvada
   const geometry = useMemo(() => {
@@ -178,10 +176,7 @@ export default function TrophyModel({ icon, name, hovered }) {
       </mesh>
 
       {/* Logo */}
-      <mesh ref={logoRef} position={[0, baseY, 0.7]}>
-        <planeGeometry args={[1, 1]} />
-        <meshBasicMaterial map={texture} transparent side={THREE.DoubleSide} />
-      </mesh>
+      <ExtrudedLogoGLB name={name} ref={logoRef} />
 
       {/* Base */}
       <mesh position={[0, 0.4, 0]}>

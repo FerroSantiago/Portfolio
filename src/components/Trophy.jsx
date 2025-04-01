@@ -13,6 +13,8 @@ export default function Trophy({ icon, name }) {
       onMouseLeave={() => setHovered(false)}
     >
       <Canvas camera={{ position: [0, 1.2, 4.5], fov: 55 }}>
+        <ambientLight intensity={0.8} />
+        <directionalLight position={[5, 5, 5]} intensity={1} />
         <Suspense fallback={null}>
           {/*  <color attach="background" args={["#111"]} /> */}
           {/*   <axesHelper args={[5]} /> */}
