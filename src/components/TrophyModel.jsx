@@ -75,17 +75,11 @@ export default function TrophyModel({ icon, name, hovered }) {
       const outerOpacity = Math.sin(clock.getElapsedTime() * 2) * 0.1 + 0.3
       const innerOpacity = Math.sin(clock.getElapsedTime() * 2) * 0.1 + 0.3
 
-      outerGlowRef.current.material.opacity = THREE.MathUtils.lerp(
-        outerGlowRef.current.material.opacity,
-        hovered ? outerOpacity : 0,
-        0.1,
-      )
+      outerGlowRef.current.material.opacity = THREE.MathUtils.lerp(outerGlowRef.current.material.opacity, hovered ? outerOpacity : 0, 0.1)
+      innerGlowRef.current.material.opacity = THREE.MathUtils.lerp(innerGlowRef.current.material.opacity, hovered ? innerOpacity : 0, 0.1)
 
-      innerGlowRef.current.material.opacity = THREE.MathUtils.lerp(
-        innerGlowRef.current.material.opacity,
-        hovered ? innerOpacity : 0,
-        0.1,
-      )
+      // Rotar el logo en su eje Y
+      logoRef.current.rotation.y += 0.02
     } else {
       // Reset scale when not hovered
       outerGlowRef.current.scale.set(1.5, 1.5, 1.5)
@@ -93,8 +87,10 @@ export default function TrophyModel({ icon, name, hovered }) {
 
       // Fade out opacity
       outerGlowRef.current.material.opacity = THREE.MathUtils.lerp(outerGlowRef.current.material.opacity, 0, 0.1)
-
       innerGlowRef.current.material.opacity = THREE.MathUtils.lerp(innerGlowRef.current.material.opacity, 0, 0.1)
+
+      // Resetear rotación si querés
+      logoRef.current.rotation.y = 0
     }
   })
 
