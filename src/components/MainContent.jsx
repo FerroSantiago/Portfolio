@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import LinesBackground from "./LinesBackground"
 import IconHover from "./IconHover"
 import IntroLoader from "./IntroLoader"

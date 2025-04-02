@@ -8,13 +8,13 @@ import ExtrudedLogoGLB from "./ExtrudedLogoGLB"
 const TECH_COLORS = {
   Typescript: "#3178c6",
   React: "#149eca",
-  "Next.js": "#ffffff",
+  "Next.js": "#666666",
   "Node.js": "#539e43",
-  Express: "#ffffff",
+  Express: "#666666",
   Firebase: "#ffa50e",
   "Mongo DB": "#46a037",
   Supabase: "#3ecf8e",
-  Vercel: "#ffffff",
+  Vercel: "#666666",
 }
 
 function useTextLabelTexture(text) {
@@ -79,7 +79,7 @@ export default function TrophyModel({ icon, name, hovered }) {
       innerGlowRef.current.material.opacity = THREE.MathUtils.lerp(innerGlowRef.current.material.opacity, hovered ? innerOpacity : 0, 0.1)
 
       // Rotar el logo en su eje Y
-      logoRef.current.rotation.y += 0.02
+      logoRef.current.rotation.y += 0.01
     } else {
       // Reset scale when not hovered
       outerGlowRef.current.scale.set(1.5, 1.5, 1.5)

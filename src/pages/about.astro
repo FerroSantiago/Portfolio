@@ -24,54 +24,65 @@ const shelfThree = [
 
 <Layout>
   <!-- Estructura principal con espacio entre columnas -->
-  <section class="min-h-screen flex justify-evenly p-10">
-    <!-- Columna Izquierda: Imagen + Texto (1/3 del ancho) -->
-    <div class="w-2/5 flex flex-col items-center justify-center">
-      <!-- Imagen centrada -->
-      <div class="w-75 h-90 flex items-center justify-center mb-4">
-        <Image
-          src="/images/profile.webp"
-          alt="Mi Foto de Perfil"
-          width={1000}
-          height={1200}
-          loading={"eager"}
-        />
+  <div>
+    <section class="min-h-screen flex justify-evenly p-10">
+      <div class="absolute left-10 text-3xl">
+        <a href="/" class="group flex items-center justify-between w-45">
+          <img src="/icons/chevrons-left.svg" alt="back" />
+          <span> Projects </span>
+          <span
+            class="absolute left-0 bottom-0 block h-0.5 w-0 bg-current transition-all duration-300 group-hover:w-full"
+          ></span>
+        </a>
       </div>
-      <!-- Texto descriptivo centrado -->
-      <div class="text-center">
-        <h1 class="text-3xl font-bold mb-2">Sobre mí</h1>
-        <p class="text-base text-zinc-300 leading-relaxed">
-          Aquí puedes escribir una breve descripción sobre tu experiencia, qué
-          te apasiona, en qué estás trabajando actualmente y por qué estas
-          tecnologías son importantes para ti.
-        </p>
+      <!-- Columna Izquierda: Imagen + Texto (1/3 del ancho) -->
+      <div class="w-2/5 flex flex-col items-center justify-center">
+        <!-- Imagen centrada -->
+        <div class="w-75 h-90 flex items-center justify-center mb-4">
+          <Image
+            src="/images/profile.webp"
+            alt="Mi Foto de Perfil"
+            width={1000}
+            height={1200}
+            loading={"eager"}
+          />
+        </div>
+        <!-- Texto descriptivo centrado -->
+        <div class="text-center">
+          <h1 class="text-3xl font-bold mb-2">Sobre mí</h1>
+          <p class="text-base text-zinc-300 leading-relaxed">
+            Aquí puedes escribir una breve descripción sobre tu experiencia, qué
+            te apasiona, en qué estás trabajando actualmente y por qué estas
+            tecnologías son importantes para ti.
+          </p>
+        </div>
       </div>
-    </div>
 
-    <!-- Columna derecha: Trofeos -->
-    <div class="w-1/3 flex flex-col space-y-4 justify-center">
-      <!-- Estanteria 1 -->
-      <div class="flex justify-between">
-        {
-          shelfOne.map((tech) => (
-            <Trophy icon={tech.icon} name={tech.name} client:visible />
-          ))
-        }
+      <!-- Columna derecha: Trofeos -->
+      <div class="w-1/3 flex flex-col space-y-4 justify-center">
+        <!-- Estanteria 1 -->
+        <div class="flex justify-between">
+          {
+            shelfOne.map((tech) => (
+              <Trophy icon={tech.icon} name={tech.name} client:visible />
+            ))
+          }
+        </div>
+        <div class="flex justify-between">
+          {
+            shelfTwo.map((tech) => (
+              <Trophy icon={tech.icon} name={tech.name} client:visible />
+            ))
+          }
+        </div>
+        <div class="flex justify-between">
+          {
+            shelfThree.map((tech) => (
+              <Trophy icon={tech.icon} name={tech.name} client:visible />
+            ))
+          }
+        </div>
       </div>
-      <div class="flex justify-between">
-        {
-          shelfTwo.map((tech) => (
-            <Trophy icon={tech.icon} name={tech.name} client:visible />
-          ))
-        }
-      </div>
-      <div class="flex justify-between">
-        {
-          shelfThree.map((tech) => (
-            <Trophy icon={tech.icon} name={tech.name} client:visible />
-          ))
-        }
-      </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </Layout>
