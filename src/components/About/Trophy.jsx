@@ -1,9 +1,11 @@
+"use client"
+
 import { useState, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import TrophyModel from "./TrophyModel";
 
-export default function Trophy({ icon, name }) {
+export default function Trophy({ icon, name, onLoaded }) {
   const [hovered, setHovered] = useState(false)
 
   return (
@@ -17,8 +19,8 @@ export default function Trophy({ icon, name }) {
         <directionalLight position={[5, 5, 5]} intensity={1} />
         <Suspense fallback={null}>
           {/*  <color attach="background" args={["#111"]} /> */}
-          {/*   <axesHelper args={[5]} /> */}
-          <TrophyModel icon={icon} name={name} hovered={hovered} />
+          {/*  <axesHelper args={[5]} /> */}
+          <TrophyModel icon={icon} name={name} hovered={hovered} onLoaded={onLoaded} />
         </Suspense>
         <OrbitControls
           enableZoom={true}

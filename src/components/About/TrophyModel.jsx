@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useRef } from "react"
+import { useMemo, useRef, useEffect } from "react"
 import * as THREE from "three"
 import { useFrame } from "@react-three/fiber"
 import ExtrudedLogoGLB from "./ExtrudedLogoGLB"
@@ -41,55 +41,74 @@ function useTextLabelTexture(text) {
   }, [text])
 }
 
-export default function TrophyModel({ icon, name, hovered }) {
+export default function TrophyModel({ icon, name, hovered, onLoaded }) {
   const labelTexture = useTextLabelTexture(name)
   const sphereRef = useRef()
   const logoRef = useRef()
   const outerGlowRef = useRef()
   const innerGlowRef = useRef()
+  const modelLoaded = useRef(false)
 
   const brandColor = TECH_COLORS[name] || "#6d6666"
 
   const baseY = 2.1
   const hoverY = 2.3
 
+  // NAvisa al padre cuando el componente esta cargado
+  useEffect(() => {
+    if (logoRef.current && !modelLoaded.current) {
+      modelLoaded.current = true
+      if (onLoaded) {
+        onLoaded(name)
+      }
+    }
+  }, [logoRef.current, name, onLoaded])
+
   useFrame(({ clock }) => {
     if (!sphereRef.current || !logoRef.current || !outerGlowRef.current || !innerGlowRef.current) return
 
-    // Current sphere position
+    // Posicion actual de la esfera
     const currentY = THREE.MathUtils.lerp(sphereRef.current.position.y, hovered ? hoverY : baseY, 0.1)
 
-    // Update all positions to follow the sphere
+    // Actualiza todas las posiciones para seguir la esfera
     sphereRef.current.position.y = currentY
     logoRef.current.position.y = currentY
     outerGlowRef.current.position.y = currentY
     innerGlowRef.current.position.y = currentY
 
-    // Create a pulsing effect when hovered
+    // Crea el efecto puslo al hover
     if (hovered) {
       const pulse = Math.sin(clock.getElapsedTime() * 3) * 0.05 + 1
       outerGlowRef.current.scale.set(1.5 * pulse, 1.5 * pulse, 1.5 * pulse)
       innerGlowRef.current.scale.set(1.2 * pulse, 1.2 * pulse, 1.2 * pulse)
 
-      // Animate the glow opacity with a slight pulse
+      // Anima el brillo al hover
       const outerOpacity = Math.sin(clock.getElapsedTime() * 2) * 0.1 + 0.3
       const innerOpacity = Math.sin(clock.getElapsedTime() * 2) * 0.1 + 0.3
 
-      outerGlowRef.current.material.opacity = THREE.MathUtils.lerp(outerGlowRef.current.material.opacity, hovered ? outerOpacity : 0, 0.1)
-      innerGlowRef.current.material.opacity = THREE.MathUtils.lerp(innerGlowRef.current.material.opacity, hovered ? innerOpacity : 0, 0.1)
+      outerGlowRef.current.material.opacity = THREE.MathUtils.lerp(
+        outerGlowRef.current.material.opacity,
+        hovered ? outerOpacity : 0,
+        0.1,
+      )
+      innerGlowRef.current.material.opacity = THREE.MathUtils.lerp(
+        innerGlowRef.current.material.opacity,
+        hovered ? innerOpacity : 0,
+        0.1,
+      )
 
       // Rotar el logo en su eje Y
       logoRef.current.rotation.y += 0.01
     } else {
-      // Reset scale when not hovered
+      // Reset de la escala cuando no hay hover
       outerGlowRef.current.scale.set(1.5, 1.5, 1.5)
       innerGlowRef.current.scale.set(1.2, 1.2, 1.2)
 
-      // Fade out opacity
+      // Desvanecimiento de opacidad
       outerGlowRef.current.material.opacity = THREE.MathUtils.lerp(outerGlowRef.current.material.opacity, 0, 0.1)
       innerGlowRef.current.material.opacity = THREE.MathUtils.lerp(innerGlowRef.current.material.opacity, 0, 0.1)
 
-      // Resetear rotación si querés
+      // Resetear rotación
       logoRef.current.rotation.y = 0
     }
   })
@@ -180,7 +199,7 @@ export default function TrophyModel({ icon, name, hovered }) {
         <meshBasicMaterial wireframe color="#da4d4d" />
       </mesh>
 
-      {/* Texto curvo sobre la base - ahora alineado con el eje Z (línea azul) */}
+      {/* Texto curvo sobre la base */}
       <mesh position={[0, 0.4, 0]}>
         <primitive object={geometry} attach="geometry" />
         <meshBasicMaterial map={labelTexture} transparent side={THREE.DoubleSide} />
@@ -188,5 +207,3 @@ export default function TrophyModel({ icon, name, hovered }) {
     </group>
   )
 }
-
-
