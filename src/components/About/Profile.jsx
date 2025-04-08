@@ -48,8 +48,8 @@ export default function Profile() {
   }
 
   return (
-    <section className="min-h-screen flex justify-evenly p-10">
-      <div className="absolute left-10 text-3xl">
+    <section className="min-h-screen flex justify-evenly items-center p-10">
+      <div className="absolute left-10 top-10 text-3xl">
         <a href="/" className="group flex items-center justify-between w-30">
           <img src="/icons/chevrons-left.svg" alt="back" />
           <span> About </span>
@@ -57,8 +57,8 @@ export default function Profile() {
         </a>
       </div>
 
-      <div className="w-2/5 flex flex-col items-center justify-center">
-        <div className="w-75 h-90 flex items-center justify-center mb-4">
+      <div className="w-2/5 flex flex-col items-center">
+        <div className="w-75 h-90 flex mb-4">
           <img src="/images/profile.webp" alt="Mi Foto de Perfil" width={1000} height={1200} loading="eager" />
         </div>
         <div className="text-center">
@@ -70,17 +70,9 @@ export default function Profile() {
         </div>
       </div>
 
-      <div className="w-1/3 flex flex-col space-y-4 justify-center relative">
-        {/* Cargaf del overlay para la seccion de los trofeos */}
-        {!allLoaded && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 backdrop-blur-sm rounded-lg z-10 transition-opacity duration-500">
-            <div className="h-16 w-16 animate-spin rounded-full border-b-2 border-t-2 border-white"></div>
-            <p className="mt-4 text-white">Cargando los trofeos</p>
-          </div>
-        )}
-
+      <div className="w-1/3 flex flex-col">
         {/* Contenido de los trofeos con desvanecimiento */}
-        <div className={`w-full h-full transition-opacity duration-700 ${allLoaded ? "opacity-100" : "opacity-0"}`}>
+        <div className={`w-full h-full space-y-4 transition-opacity duration-700 ${allLoaded ? "opacity-100" : "opacity-0"}`}>
           <div className="flex justify-between">
             {shelfOne.map((tech) => (
               <Trophy icon={tech.icon} name={tech.name} key={tech.name} onLoaded={() => handleModelLoaded(tech.name)} />

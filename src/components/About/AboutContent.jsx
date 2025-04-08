@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Profile from "./Profile"
+import Career from "./Career"
 
 export default function AboutContent() {
   const [isLoading, setIsLoading] = useState(true)
@@ -29,6 +30,7 @@ export default function AboutContent() {
       {/* Contenido con desvanecimiento */}
       <div className={`transition-opacity duration-500 ${isLoading ? "opacity-0" : "opacity-100"}`}>
         <Profile />
+        <Career />
       </div>
     </>
   )
