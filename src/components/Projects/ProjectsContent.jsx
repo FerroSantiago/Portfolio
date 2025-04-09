@@ -1,8 +1,12 @@
+import BubblesBackground from "./BubblesBackground";
 import Software from "./Software";
 
 const ProjectsContent = () => {
   return (
-    <Software />
+    <>
+      <BubblesBackground />
+      <Software />
+    </>
   )
 }
 
