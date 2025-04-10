@@ -25,4 +25,9 @@ body {
   }
 }
 
+.mask-gradient {
+  -webkit-mask-image: linear-gradient(180deg, black 70%, transparent 100%);
+  mask-image: linear-gradient(180deg, black 70%, transparent 100%);
+}
+
 

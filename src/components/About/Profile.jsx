@@ -59,7 +59,7 @@ export default function Profile() {
 
       <div className="w-2/5 flex flex-col items-center">
         <div className="w-75 h-90 flex mb-4">
-          <img src="/images/profile.webp" alt="Mi Foto de Perfil" width={1000} height={1200} loading="eager" />
+          <img className="mask-gradient" src="/images/profile.webp" alt="Mi Foto de Perfil" width={1000} height={1200} loading="eager" />
         </div>
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-2">Sobre mí</h1>
