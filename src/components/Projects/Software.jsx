@@ -6,12 +6,12 @@ export default function SoftwareProjects() {
   const [hoveredIndex, setHoveredIndex] = useState(null)
 
   const projects = [
-    { name: "NeuroNEApp", description: "Brain exercising games platform", link: "https://neurneapp.example.com" },
-    { name: "QuantumStore", description: "B2B digital marketplace for wholesale goods ", link: "https://quantumstore.example.com" },
-    { name: "VocalWise", description: "AI oratory coaching app with comprehensive feedback", link: "https://vocalwise.example.com" },
-    { name: "InboxVIP", description: "Direct influencer-follower engagement platform", link: "https://inboxvip.example.com" },
-    { name: "SpeechTherapist", description: "AI-powered phonetic error recognition tool for speech therapists", link: "https://speechtherapist.example.com" },
-    { name: "Tecnicar", description: "Electric karts race laps system", link: "https://tecnicar.example.com" },
+    { name: "NeuroNEApp", description: "Brain exercising games platform", link: "/projects/neuroneapp" },
+    { name: "QuantumStore", description: "B2B digital marketplace for wholesale goods ", link: "/projects/quantum-store" },
+    { name: "VocalWise", description: "AI oratory coaching app with comprehensive feedback", link: "/projects/vocalwise" },
+    { name: "InboxVIP", description: "Direct influencer-follower engagement platform", link: "/projects/inboxvip" },
+    { name: "SpeechTherapist", description: "AI-powered phonetic error recognition tool for speech therapists", link: "/projects/speechtherapist" },
+    { name: "Tecnicar", description: "Electric karts race laps system", link: "/projects/tecnicar" },
   ]
 
   return (
@@ -28,7 +28,7 @@ export default function SoftwareProjects() {
             <a
               key={project.name}
               href={project.link}
-              target="_blank"
+
               rel="noopener noreferrer"
               className="p-4 opacity-0 animate-[fadeIn_0.5s_ease-out_forwards]"
               style={{ animationDelay: `${index * 100}ms` }}
